@@ -1,0 +1,524 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>SKIN AI</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout concept: sticky header, navy hero band with a viewfinder motif, white working pages with one clear job each. */
+:root{
+  --navy:#0B2545; --teal-bright:#2CC4BE;
+  --bg:#FFFFFF; --surface:#F2F8FA; --card:#FFFFFF; --ink:#0B2545; --muted:#4A6076; --line:#D7E4EA;
+  --accent:#0A8383; --accent-ink:#FFFFFF; --accent-soft:#E0F4F3; --accent-text:#0A6F6F;
+  --hero-bg:#0B2545; --hero-ink:#FFFFFF; --hero-muted:#BBD3E0; --hero-line:rgba(255,255,255,.28);
+  --warn-bg:#FFF4DB; --warn-line:#E7B94A; --warn-ink:#5A4000;
+  --ok-bg:#DDF4EE; --ok-ink:#0B5D4F;
+  --bad-bg:#FDE7E4; --bad-ink:#8A1F14;
+  --shadow:0 10px 30px rgba(11,37,69,.08);
+  --font-display:'Bricolage Grotesque','Segoe UI',system-ui,sans-serif;
+  --font-body:'Figtree','Segoe UI',system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#07162B; --surface:#0C1F3A; --card:#0F2745; --ink:#E7F1F5; --muted:#9DB5C6; --line:#1E3C60;
+    --accent:#2CC4BE; --accent-ink:#04222A; --accent-soft:#0F3A47; --accent-text:#5FE0DA;
+    --hero-bg:#0C2A4F; --hero-ink:#FFFFFF; --hero-muted:#BBD3E0; --hero-line:rgba(255,255,255,.25);
+    --warn-bg:#3A2D0B; --warn-line:#8F6D1C; --warn-ink:#F6DFA0;
+    --ok-bg:#0D3B35; --ok-ink:#8DE8D2;
+    --bad-bg:#43191A; --bad-ink:#FFB4AB;
+    --shadow:0 10px 30px rgba(0,0,0,.35);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#07162B; --surface:#0C1F3A; --card:#0F2745; --ink:#E7F1F5; --muted:#9DB5C6; --line:#1E3C60;
+  --accent:#2CC4BE; --accent-ink:#04222A; --accent-soft:#0F3A47; --accent-text:#5FE0DA;
+  --hero-bg:#0C2A4F; --hero-ink:#FFFFFF; --hero-muted:#BBD3E0; --hero-line:rgba(255,255,255,.25);
+  --warn-bg:#3A2D0B; --warn-line:#8F6D1C; --warn-ink:#F6DFA0;
+  --ok-bg:#0D3B35; --ok-ink:#8DE8D2;
+  --bad-bg:#43191A; --bad-ink:#FFB4AB;
+  --shadow:0 10px 30px rgba(0,0,0,.35);
+  color-scheme:dark;
+}
+*{box-sizing:border-box;}
+body{background:var(--bg);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.55;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg);}
+h1,h2,h3{font-family:var(--font-display);line-height:1.12;margin:0;text-wrap:balance;letter-spacing:-.01em;}
+h1{font-size:clamp(2rem,5.2vw,3.3rem);font-weight:700;}
+h2{font-size:clamp(1.5rem,3.4vw,2.1rem);font-weight:700;}
+h3{font-size:1.15rem;font-weight:600;}
+p{margin:0;}
+a{color:var(--accent-text);}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));}
+:focus-visible{outline:3px solid var(--teal-bright);outline-offset:2px;}
+
+/* header */
+.site-header{position:sticky;top:env(safe-area-inset-top,0px);z-index:40;background:var(--bg);border-bottom:1px solid var(--line);}
+.header-row{display:flex;align-items:center;gap:.75rem 1.25rem;flex-wrap:wrap;padding-block:.7rem;}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none;color:var(--ink);font-family:var(--font-display);font-weight:700;font-size:1.3rem;letter-spacing:.02em;}
+.brand small{display:block;font-family:var(--font-body);font-weight:500;font-size:.7rem;letter-spacing:.06em;color:var(--muted);text-transform:uppercase;margin-top:-2px;}
+.nav{display:flex;gap:.25rem;margin-left:auto;overflow-x:auto;max-width:100%;}
+.nav a{padding:.5rem .85rem;border-radius:8px;text-decoration:none;color:var(--muted);font-weight:600;white-space:nowrap;}
+.nav a:hover{color:var(--ink);background:var(--surface);}
+.nav a[aria-current="page"]{color:var(--accent-text);background:var(--accent-soft);}
+.icon-btn{border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:8px;min-width:44px;min-height:44px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font:600 .85rem var(--font-body);}
+.icon-btn:hover{background:var(--surface);}
+@media (max-width:640px){.nav{order:3;width:100%;margin-left:0;}.header-row .icon-btn{margin-left:auto;}}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:46px;padding:.7rem 1.3rem;border-radius:10px;border:1px solid transparent;font:600 1rem var(--font-body);cursor:pointer;text-decoration:none;transition:transform .15s,background .15s;}
+.btn:hover{transform:translateY(-1px);}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none;}
+.btn-primary{background:var(--accent);color:var(--accent-ink);}
+.btn-primary:hover{filter:brightness(1.08);}
+.btn-ghost{background:transparent;color:var(--ink);border-color:var(--line);}
+.btn-ghost:hover{background:var(--surface);}
+.btn-hero{background:#2CC4BE;color:#04222A;}
+.btn-hero-ghost{background:transparent;color:#fff;border-color:var(--hero-line);}
+.btn-hero-ghost:hover{background:rgba(255,255,255,.1);}
+.btn-row{display:flex;gap:.75rem;flex-wrap:wrap;}
+
+/* hero */
+.hero{background:var(--hero-bg);color:var(--hero-ink);padding-block:clamp(2rem,6vw,4.5rem);}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:2.5rem;align-items:center;}
+.hero h1{color:var(--hero-ink);}
+.hero p.lead{color:var(--hero-muted);font-size:1.12rem;max-width:36rem;margin-top:1rem;}
+.hero .btn-row{margin-top:1.6rem;}
+.chip{display:inline-flex;align-items:center;gap:.45rem;padding:.3rem .75rem;border-radius:999px;font-size:.8rem;font-weight:600;border:1px solid var(--hero-line);color:var(--hero-ink);margin-bottom:1.1rem;}
+.dot{width:8px;height:8px;border-radius:50%;background:#F3B73B;display:inline-block;}
+.viewfinder{border:1px solid var(--hero-line);border-radius:18px;padding:1.25rem;background:rgba(255,255,255,.04);}
+.viewfinder svg{display:block;width:100%;height:auto;max-height:300px;}
+.viewfinder figcaption{color:var(--hero-muted);font-size:.9rem;margin-top:.8rem;}
+@media (max-width:820px){.hero-grid{grid-template-columns:minmax(0,1fr);}}
+
+/* sections */
+.section{padding-block:clamp(2rem,5vw,3.5rem);}
+.section.alt{background:var(--surface);}
+.section-head{max-width:40rem;margin-bottom:1.6rem;}
+.section-head p{color:var(--muted);margin-top:.6rem;}
+.grid{display:grid;gap:1rem;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));}
+.grid>*{min-width:0;}
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.3rem;}
+.card.raised{box-shadow:var(--shadow);}
+.card h3{margin-bottom:.5rem;}
+.card p,.card li{color:var(--muted);}
+.card ul{margin:.4rem 0 0;padding-left:1.15rem;display:grid;gap:.35rem;}
+.step-n{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:var(--accent-soft);color:var(--accent-text);font-weight:700;margin-bottom:.7rem;}
+.abcde{display:grid;gap:.6rem;margin:.6rem 0 0;padding:0;list-style:none;}
+.abcde li{display:flex;gap:.75rem;align-items:baseline;}
+.abcde b{font-family:var(--font-display);font-size:1.25rem;color:var(--accent-text);width:1.2rem;flex:none;}
+.cta-band{background:var(--hero-bg);color:var(--hero-ink);border-radius:18px;padding:clamp(1.5rem,4vw,2.5rem);display:flex;gap:1.25rem;justify-content:space-between;align-items:center;flex-wrap:wrap;}
+.cta-band p{color:var(--hero-muted);margin-top:.4rem;}
+
+/* notices */
+.notice{border-radius:12px;padding:.95rem 1.1rem;font-size:.95rem;border:1px solid;}
+.notice b{font-weight:700;}
+.notice.warn{background:var(--warn-bg);border-color:var(--warn-line);color:var(--warn-ink);}
+.notice.info{background:var(--accent-soft);border-color:var(--line);color:var(--ink);}
+.stack{display:grid;gap:1rem;}
+
+/* analyze */
+.page-title{padding-block:clamp(1.5rem,4vw,2.5rem) 1rem;}
+.page-title p{color:var(--muted);margin-top:.5rem;max-width:40rem;}
+.analyze{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:1.5rem;align-items:start;padding-bottom:3rem;}
+@media (max-width:860px){.analyze{grid-template-columns:minmax(0,1fr);}}
+.drop{border:2px dashed var(--line);border-radius:14px;padding:1.6rem 1rem;text-align:center;background:var(--surface);display:grid;gap:.7rem;justify-items:center;transition:border-color .15s,background .15s;}
+.drop.over{border-color:var(--accent);background:var(--accent-soft);}
+.drop p{color:var(--muted);font-size:.92rem;}
+.preview{display:grid;gap:.8rem;}
+.preview img{width:100%;max-height:380px;object-fit:contain;border-radius:12px;background:var(--surface);border:1px solid var(--line);}
+.meta{font-size:.85rem;color:var(--muted);overflow-wrap:anywhere;}
+.check-row{display:flex;gap:.7rem;align-items:flex-start;font-size:.95rem;}
+.check-row input{width:20px;height:20px;margin-top:.2rem;accent-color:var(--accent);flex:none;}
+.field{display:grid;gap:.35rem;}
+.field label{font-weight:600;font-size:.9rem;}
+.field input[type="text"],.field input[type="url"]{width:100%;min-height:44px;padding:.6rem .8rem;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);font:inherit;}
+.small{font-size:.85rem;color:var(--muted);}
+.empty{display:grid;gap:.5rem;justify-items:start;}
+.empty svg{color:var(--accent-text);}
+.loader{display:flex;align-items:center;gap:1rem;}
+.spinner{width:42px;height:42px;border-radius:50%;border:5px solid var(--accent-soft);border-top-color:var(--accent);animation:spin 1s linear infinite;flex:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+@keyframes rise{from{opacity:.0;transform:translateY(10px);}to{opacity:1;transform:none;}}
+.reveal{animation:rise .45s ease both;}
+@media (prefers-reduced-motion:reduce){.spinner{animation-duration:3s;}.reveal{animation:none;}.btn:hover{transform:none;}}
+.badge{display:inline-flex;align-items:center;gap:.4rem;padding:.25rem .65rem;border-radius:999px;font-size:.78rem;font-weight:700;letter-spacing:.02em;}
+.badge.demo{background:var(--warn-bg);color:var(--warn-ink);border:1px solid var(--warn-line);}
+.badge.ok{background:var(--ok-bg);color:var(--ok-ink);}
+.badge.bad{background:var(--bad-bg);color:var(--bad-ink);}
+.badge.live{background:var(--accent-soft);color:var(--accent-text);}
+.checks{display:grid;gap:.7rem;margin:.8rem 0 0;padding:0;list-style:none;}
+.checks li{display:grid;grid-template-columns:auto minmax(0,1fr);gap:.2rem .8rem;align-items:start;padding-bottom:.7rem;border-bottom:1px solid var(--line);}
+.checks li:last-child{border-bottom:0;padding-bottom:0;}
+.checks .tip{grid-column:2;font-size:.88rem;color:var(--muted);}
+.checks .val{font-weight:600;overflow-wrap:anywhere;}
+.bar-row{margin:.7rem 0;}
+.bar-label{display:flex;justify-content:space-between;gap:1rem;font-size:.92rem;margin-bottom:4px;}
+.bar-track{height:10px;border-radius:999px;background:var(--surface);overflow:hidden;border:1px solid var(--line);}
+.bar-fill{height:100%;background:var(--accent);border-radius:999px;}
+.row-between{display:flex;justify-content:space-between;align-items:center;gap:.75rem;flex-wrap:wrap;}
+footer{border-top:1px solid var(--line);padding-block:1.6rem 2.4rem;color:var(--muted);font-size:.88rem;}
+footer .wrap{display:grid;gap:.5rem;}
+</style>
+
+<div id="root"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react/18.3.1/umd/react.production.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.3.1/umd/react-dom.production.min.js"></script>
+<script>
+(function () {
+  var useState = React.useState, useEffect = React.useEffect, useRef = React.useRef;
+  var h = React.createElement;
+
+  var VIEWS = ['home', 'analyze', 'about', 'safety'];
+  var LABELS = { home: 'Home', analyze: 'Analyze', about: 'About', safety: 'Safety' };
+  var ALLOWED = ['image/jpeg', 'image/png', 'image/webp'];
+  var MAX_BYTES = 10 * 1024 * 1024;
+
+  /* ---------- helpers ---------- */
+  function readView() {
+    var v = (location.hash || '').slice(1);
+    return VIEWS.indexOf(v) >= 0 ? v : 'home';
+  }
+  function useView() {
+    var s = useState(readView), view = s[0], setView = s[1];
+    useEffect(function () {
+      function onHash() { setView(readView()); window.scrollTo(0, 0); }
+      window.addEventListener('hashchange', onHash);
+      return function () { window.removeEventListener('hashchange', onHash); };
+    }, []);
+    return view;
+  }
+  function fmtSize(b) { return b > 1048576 ? (b / 1048576).toFixed(1) + ' MB' : Math.max(1, Math.round(b / 1024)) + ' KB'; }
+
+  function loadImg(url) {
+    return new Promise(function (res, rej) {
+      var i = new Image();
+      i.onload = function () { res(i); };
+      i.onerror = function () { rej(new Error('Image could not be decoded')); };
+      i.src = url;
+    });
+  }
+
+  /* Real, local measurements of the photo. No medical inference is made here. */
+  function measure(img, file) {
+    var W = img.naturalWidth, H = img.naturalHeight;
+    var s = Math.min(1, 256 / Math.max(W, H));
+    var w = Math.max(8, Math.round(W * s)), hh = Math.max(8, Math.round(H * s));
+    var c = document.createElement('canvas'); c.width = w; c.height = hh;
+    var ctx = c.getContext('2d', { willReadFrequently: true });
+    ctx.drawImage(img, 0, 0, w, hh);
+    var d = ctx.getImageData(0, 0, w, hh).data;
+    var g = new Float32Array(w * hh), sum = 0, j = 0, i;
+    for (i = 0; i < d.length; i += 4, j++) { var v = 0.299 * d[i] + 0.587 * d[i + 1] + 0.114 * d[i + 2]; g[j] = v; sum += v; }
+    var mean = sum / g.length;
+    var ls = 0, lq = 0, n = 0, x, y;
+    for (y = 1; y < hh - 1; y++) for (x = 1; x < w - 1; x++) {
+      var k = y * w + x, l = 4 * g[k] - g[k - 1] - g[k + 1] - g[k - w] - g[k + w];
+      ls += l; lq += l * l; n++;
+    }
+    var lv = n ? lq / n - Math.pow(ls / n, 2) : 0;
+    var short = Math.min(W, H);
+    var checks = [
+      { key: 'res', label: 'Resolution', value: W + ' × ' + H + ' px', ok: short >= 224,
+        tip: short >= 224 ? 'Large enough for a model that reads 224 × 224 px.' : 'Use a photo at least 224 px on the short side. Phone cameras usually exceed this.' },
+      { key: 'light', label: 'Lighting', value: Math.round(mean / 255 * 100) + '% average brightness', ok: mean >= 70 && mean <= 200,
+        tip: mean < 70 ? 'The photo is dark. Move to natural daylight and retake it.' : mean > 200 ? 'The photo is very bright or washed out. Avoid direct flash and glare.' : 'Brightness is in a usable range.' },
+      { key: 'sharp', label: 'Focus (estimate)', value: lv >= 25 ? 'Looks sharp' : 'May be blurry', ok: lv >= 25,
+        tip: lv >= 25 ? 'Edges look clear enough.' : 'Hold the phone steady, tap to focus on the area, and keep 10 to 15 cm away.' },
+      { key: 'file', label: 'File', value: (file.type.replace('image/', '').toUpperCase()) + ' · ' + fmtSize(file.size), ok: true,
+        tip: 'Accepted format and size.' }
+    ];
+    var bad = checks.filter(function (c) { return !c.ok; }).length;
+    return { checks: checks, bad: bad };
+  }
+
+  function parsePreds(j) {
+    if (!j || !Array.isArray(j.predictions) || !j.predictions.length) throw new Error('Unexpected response format');
+    var out = j.predictions.map(function (p) {
+      if (typeof p.label !== 'string' || typeof p.probability !== 'number' || p.probability < 0 || p.probability > 1) throw new Error('Unexpected response format');
+      return { label: p.label, probability: p.probability };
+    });
+    out.sort(function (a, b) { return b.probability - a.probability; });
+    return out.slice(0, 5);
+  }
+
+  /* ---------- small pieces ---------- */
+  function Logo() {
+    return h('svg', { width: 34, height: 34, viewBox: '0 0 34 34', 'aria-hidden': 'true' },
+      h('rect', { width: 34, height: 34, rx: 9, fill: '#0B2545' }),
+      h('circle', { cx: 17, cy: 17, r: 8.5, fill: 'none', stroke: '#2CC4BE', strokeWidth: 2.4 }),
+      h('circle', { cx: 17, cy: 17, r: 2.6, fill: '#2CC4BE' }));
+  }
+  function Header(p) {
+    return h('header', { className: 'site-header' },
+      h('div', { className: 'wrap header-row' },
+        h('a', { className: 'brand', href: '#home', 'aria-label': 'SKIN AI home' }, h(Logo), h('span', null, 'SKIN AI', h('small', null, 'by BYTE SQUAD'))),
+        h('nav', { className: 'nav', 'aria-label': 'Main' }, VIEWS.map(function (v) {
+          return h('a', { key: v, href: '#' + v, 'aria-current': p.view === v ? 'page' : undefined }, LABELS[v]);
+        })),
+        h('button', { className: 'icon-btn', type: 'button', onClick: p.onTheme, 'aria-label': 'Switch between light and dark theme' }, p.dark ? 'Light' : 'Dark')));
+  }
+  function Footer() {
+    return h('footer', null, h('div', { className: 'wrap' },
+      h('p', null, h('b', null, 'SKIN AI'), ' · A college project by BYTE SQUAD.'),
+      h('p', null, 'Not a medical device. Nothing here is a medical diagnosis. Consult a qualified healthcare professional about any skin concern.')));
+  }
+  var DISCLAIMER = h('div', { className: 'notice warn', role: 'note' },
+    h('b', null, 'Medical disclaimer. '),
+    'SKIN AI is an educational project. It does not diagnose, treat or rule out any condition, and any AI output can be wrong. See a doctor or dermatologist about anything that worries you, and seek urgent care for rapid changes, bleeding or severe symptoms.');
+
+  function Viewfinder() {
+    var corner = function (d) { return h('path', { d: d, fill: 'none', stroke: '#2CC4BE', strokeWidth: 4, strokeLinecap: 'round' }); };
+    return h('figure', { className: 'viewfinder', style: { margin: 0 } },
+      h('svg', { viewBox: '0 0 320 240', role: 'img', 'aria-label': 'Camera frame centred on a skin area' },
+        h('rect', { x: 0, y: 0, width: 320, height: 240, rx: 12, fill: 'rgba(255,255,255,.05)' }),
+        h('circle', { cx: 160, cy: 120, r: 70, fill: 'none', stroke: 'rgba(255,255,255,.35)', strokeWidth: 1.5, strokeDasharray: '4 6' }),
+        h('circle', { cx: 160, cy: 120, r: 38, fill: 'none', stroke: 'rgba(255,255,255,.55)', strokeWidth: 1.5 }),
+        h('circle', { cx: 160, cy: 120, r: 6, fill: '#2CC4BE' }),
+        h('path', { d: 'M160 28v26M160 186v26M52 120h26M242 120h26', stroke: 'rgba(255,255,255,.5)', strokeWidth: 1.5 }),
+        corner('M26 54V28h26'), corner('M294 54V28h-26'), corner('M26 186v26h26'), corner('M294 186v26h-26')),
+      h('figcaption', null, 'Centre the area, keep it in focus, and use even daylight. A ruler or coin beside it shows size.'));
+  }
+
+  /* ---------- pages ---------- */
+  function Home() {
+    return h('main', null,
+      h('section', { className: 'hero' }, h('div', { className: 'wrap hero-grid' },
+        h('div', null,
+          h('span', { className: 'chip' }, h('span', { className: 'dot' }), 'Demo build · no AI model connected'),
+          h('h1', null, 'Understand a skin concern before you see the doctor.'),
+          h('p', { className: 'lead' }, 'Upload a photo, check that it is good enough for analysis, and get clear next steps. SKIN AI is a student project by BYTE SQUAD and never replaces a medical diagnosis.'),
+          h('div', { className: 'btn-row' },
+            h('a', { className: 'btn btn-hero', href: '#analyze' }, 'Upload a skin photo'),
+            h('a', { className: 'btn btn-hero-ghost', href: '#about' }, 'About the project'))),
+        h(Viewfinder))),
+      h('section', { className: 'section' }, h('div', { className: 'wrap' },
+        h('div', { className: 'section-head' }, h('h2', null, 'How it works'), h('p', null, 'Three steps, all of them in your browser in this demo.')),
+        h('div', { className: 'grid' },
+          [['1', 'Upload', 'Choose a JPG, PNG or WebP photo and look at the preview before anything runs.'],
+           ['2', 'Analyze', 'The demo measures resolution, lighting and focus. With a model connected, it also lists likely categories.'],
+           ['3', 'Review', 'Read the results, general guidance and the signs that mean you should see a professional.']].map(function (s) {
+            return h('div', { className: 'card', key: s[0] }, h('span', { className: 'step-n' }, s[0]), h('h3', null, s[1]), h('p', null, s[2]));
+          })))),
+      h('section', { className: 'section alt' }, h('div', { className: 'wrap' },
+        h('div', { className: 'grid' },
+          h('div', { className: 'card' }, h('h3', null, 'Taking a useful photo'),
+            h('ul', null,
+              h('li', null, 'Use natural daylight and switch the flash off.'),
+              h('li', null, 'Hold the phone 10 to 15 cm away and tap to focus.'),
+              h('li', null, 'Keep the area centred and leave out your face.'),
+              h('li', null, 'Retake it if it looks dark, blurry or glary.'))),
+          h('div', { className: 'card' }, h('h3', null, 'The ABCDE rule for moles'),
+            h('ul', { className: 'abcde' },
+              [['A', 'Asymmetry: the halves do not match'], ['B', 'Border: ragged, notched or blurred edge'], ['C', 'Colour: uneven browns, black, red or white'],
+               ['D', 'Diameter: wider than about 6 mm'], ['E', 'Evolving: any change over weeks or months']].map(function (r) {
+                return h('li', { key: r[0] }, h('b', null, r[0]), h('span', null, r[1]));
+              })))))),
+      h('section', { className: 'section' }, h('div', { className: 'wrap stack' },
+        DISCLAIMER,
+        h('div', { className: 'cta-band' },
+          h('div', null, h('h2', null, 'Ready to try it?'), h('p', null, 'Start with a photo. Nothing is uploaded anywhere in the demo.')),
+          h('a', { className: 'btn btn-hero', href: '#analyze' }, 'Go to Analyze')))));
+  }
+
+  function Bars(p) {
+    return h('div', null, p.items.map(function (it) {
+      var pct = Math.round(it.probability * 1000) / 10;
+      return h('div', { className: 'bar-row', key: it.label },
+        h('div', { className: 'bar-label' }, h('span', null, it.label), h('span', null, pct.toFixed(1) + '%')),
+        h('div', { className: 'bar-track' }, h('div', { className: 'bar-fill', style: { width: Math.max(pct, 0.8) + '%' } })));
+    }));
+  }
+
+  function Analyze() {
+    var _f = useState(null), file = _f[0], setFile = _f[1];
+    var _u = useState(''), url = _u[0], setUrl = _u[1];
+    var _e = useState(''), err = _e[0], setErr = _e[1];
+    var _c = useState(false), consent = _c[0], setConsent = _c[1];
+    var _s = useState('idle'), status = _s[0], setStatus = _s[1];
+    var _q = useState(null), quality = _q[0], setQuality = _q[1];
+    var _o = useState(false), over = _o[0], setOver = _o[1];
+    var _ep = useState(''), endpoint = _ep[0], setEndpoint = _ep[1];
+    var _ed = useState(''), draft = _ed[0], setDraft = _ed[1];
+    var _sp = useState(false), showConnect = _sp[0], setShowConnect = _sp[1];
+    var _mr = useState(null), modelRes = _mr[0], setModelRes = _mr[1];
+    var _me = useState(''), modelErr = _me[0], setModelErr = _me[1];
+    var _ce = useState(''), connErr = _ce[0], setConnErr = _ce[1];
+    var input = useRef(null), resultRef = useRef(null), urlRef = useRef('');
+
+    useEffect(function () { return function () { if (urlRef.current) URL.revokeObjectURL(urlRef.current); }; }, []);
+    useEffect(function () {
+      if (status === 'done' && resultRef.current && resultRef.current.scrollIntoView) resultRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }, [status]);
+
+    function clearAll() {
+      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+      urlRef.current = ''; setUrl(''); setFile(null); setErr(''); setStatus('idle'); setQuality(null); setModelRes(null); setModelErr('');
+      if (input.current) input.current.value = '';
+    }
+    function accept(f) {
+      if (!f) return;
+      if (ALLOWED.indexOf(f.type) < 0) { setErr('That file type is not supported. Choose a JPG, PNG or WebP image.'); return; }
+      if (f.size > MAX_BYTES) { setErr('That image is larger than 10 MB. Choose a smaller photo.'); return; }
+      if (urlRef.current) URL.revokeObjectURL(urlRef.current);
+      var u = URL.createObjectURL(f);
+      urlRef.current = u; setUrl(u); setFile(f); setErr(''); setStatus('idle'); setQuality(null); setModelRes(null); setModelErr('');
+    }
+    function onDrop(ev) { ev.preventDefault(); setOver(false); accept(ev.dataTransfer && ev.dataTransfer.files[0]); }
+
+    function connect() {
+      var v = draft.trim();
+      var okUrl = /^https:\/\/\S+$/i.test(v) || /^http:\/\/(localhost|127\.0\.0\.1)(:\d+)?(\/\S*)?$/i.test(v);
+      if (!okUrl) { setConnErr('Enter an https:// address, or http://localhost for local testing.'); return; }
+      setConnErr(''); setEndpoint(v); setShowConnect(false);
+    }
+    function disconnect() { setEndpoint(''); setDraft(''); setModelRes(null); setModelErr(''); }
+
+    async function run() {
+      if (!file || !consent) return;
+      setStatus('loading'); setModelRes(null); setModelErr('');
+      var t0 = performance.now();
+      try {
+        var img = await loadImg(url);
+        setQuality(measure(img, file));
+        if (endpoint) {
+          try {
+            var fd = new FormData(); fd.append('file', file);
+            var r = await fetch(endpoint, { method: 'POST', body: fd });
+            if (!r.ok) throw new Error('The server answered with status ' + r.status);
+            setModelRes(parsePreds(await r.json()));
+          } catch (e2) {
+            setModelErr('Could not get a prediction from your model. ' + (e2 && e2.message ? e2.message + '. ' : '') + 'This preview may also block connections to outside servers.');
+          }
+        }
+        var wait = Math.max(0, 900 - (performance.now() - t0));
+        await new Promise(function (r2) { setTimeout(r2, wait); });
+        setStatus('done');
+      } catch (e) {
+        setStatus('error'); setErr('This image could not be read. Try another photo.');
+      }
+    }
+
+    var left = h('div', { className: 'stack' },
+      h('div', { className: 'card raised stack' },
+        h('div', { className: 'row-between' }, h('h3', null, '1. Add a photo'), endpoint ? h('span', { className: 'badge live' }, 'Model connected') : h('span', { className: 'badge demo' }, 'Demo mode')),
+        h('input', { id: 'photo-input', ref: input, type: 'file', accept: 'image/jpeg,image/png,image/webp', hidden: true, onChange: function (e) { accept(e.target.files[0]); } }),
+        !url ? h('div', { className: 'drop' + (over ? ' over' : ''), onDragOver: function (e) { e.preventDefault(); setOver(true); }, onDragLeave: function () { setOver(false); }, onDrop: onDrop },
+          h('button', { type: 'button', className: 'btn btn-primary', onClick: function () { input.current.click(); } }, 'Upload skin image'),
+          h('p', null, 'or drop a JPG, PNG or WebP here (up to 10 MB)'))
+        : h('div', { className: 'preview' },
+          h('img', { src: url, alt: 'Preview of your uploaded skin photo' }),
+          h('p', { className: 'meta' }, file.name + ' · ' + fmtSize(file.size)),
+          h('div', { className: 'btn-row' },
+            h('button', { type: 'button', className: 'btn btn-ghost', onClick: function () { input.current.click(); } }, 'Choose another'),
+            h('button', { type: 'button', className: 'btn btn-ghost', onClick: clearAll }, 'Remove photo'))),
+        err ? h('div', { className: 'notice warn', role: 'alert' }, err) : null,
+        h('label', { className: 'check-row', htmlFor: 'consent' },
+          h('input', { id: 'consent', type: 'checkbox', checked: consent, onChange: function (e) { setConsent(e.target.checked); } }),
+          h('span', null, 'I understand this tool cannot diagnose a condition and its output can be wrong.')),
+        h('button', { type: 'button', className: 'btn btn-primary', disabled: !file || !consent || status === 'loading', onClick: run }, status === 'loading' ? 'Analyzing…' : 'Analyze Skin'),
+        !file ? h('p', { className: 'small' }, 'Add a photo to enable the Analyze Skin button.') : !consent ? h('p', { className: 'small' }, 'Tick the box above to continue.') : null),
+      h('div', { className: 'card stack' },
+        h('div', { className: 'row-between' }, h('h3', null, 'Connect your own model'),
+          h('button', { type: 'button', className: 'btn btn-ghost', onClick: function () { setShowConnect(!showConnect); }, 'aria-expanded': showConnect }, showConnect ? 'Hide' : 'Set up')),
+        endpoint ? h('div', { className: 'stack' }, h('p', { className: 'small' }, 'Sending photos to: ' + endpoint), h('div', null, h('button', { type: 'button', className: 'btn btn-ghost', onClick: disconnect }, 'Disconnect model'))) :
+          h('p', { className: 'small' }, 'Optional. Without a model, this page checks photo quality only and gives no prediction.'),
+        showConnect ? h('div', { className: 'stack' },
+          h('div', { className: 'field' }, h('label', { htmlFor: 'endpoint' }, 'Prediction endpoint URL'),
+            h('input', { id: 'endpoint', type: 'url', placeholder: 'https://your-server.example/predict', value: draft, onChange: function (e) { setDraft(e.target.value); } })),
+          h('p', { className: 'small' }, 'Your server receives a POST with the image in a form field named file and returns JSON like {"predictions":[{"label":"Name","probability":0.62}]}. The photo is sent to that server.'),
+          connErr ? h('div', { className: 'notice warn', role: 'alert' }, connErr) : null,
+          h('div', null, h('button', { type: 'button', className: 'btn btn-primary', onClick: connect }, 'Save endpoint'))) : null));
+
+    var right;
+    if (status === 'loading') {
+      right = h('div', { className: 'card raised loader', role: 'status', 'aria-live': 'polite' }, h('div', { className: 'spinner' }), h('div', null, h('h3', null, 'Analyzing your photo'), h('p', { className: 'small' }, endpoint ? 'Checking quality and contacting your model…' : 'Checking resolution, lighting and focus…')));
+    } else if (status === 'done' && quality) {
+      right = h('div', { className: 'stack reveal', ref: resultRef },
+        h('div', { className: 'card raised' },
+          h('div', { className: 'row-between' }, h('h3', null, 'Skin condition result'), modelRes ? h('span', { className: 'badge live' }, 'Model output') : h('span', { className: 'badge demo' }, 'Demo')),
+          modelRes ? h('div', null,
+            h('p', { className: 'small', style: { marginTop: '.4rem' } }, 'Scores from your connected model. These are not a diagnosis and have not been checked by this page.'),
+            h(Bars, { items: modelRes }))
+          : h('div', { className: 'stack', style: { marginTop: '.6rem' } },
+            h('div', { className: 'notice warn' }, h('b', null, 'No prediction available. '), 'No AI model is connected, so this demo does not identify or score any skin condition. It would be inaccurate and unsafe to guess.'),
+            modelErr ? h('div', { className: 'notice warn', role: 'alert' }, modelErr) : null,
+            h('p', { className: 'small' }, 'The full BYTE SQUAD project runs a trained TensorFlow/Keras model in a Streamlit app. You can also connect your own endpoint on the left.'))),
+        h('div', { className: 'card' },
+          h('div', { className: 'row-between' }, h('h3', null, 'Photo quality check'), quality.bad === 0 ? h('span', { className: 'badge ok' }, 'Suitable') : h('span', { className: 'badge bad' }, quality.bad + ' to improve')),
+          h('p', { className: 'small', style: { marginTop: '.3rem' } }, 'Measured in your browser from the pixels of your photo.'),
+          h('ul', { className: 'checks' }, quality.checks.map(function (c) {
+            return h('li', { key: c.key }, h('span', { className: 'badge ' + (c.ok ? 'ok' : 'bad') }, c.ok ? 'OK' : 'Improve'),
+              h('div', null, h('div', { className: 'val' }, c.label + ': ' + c.value)), h('div', { className: 'tip' }, c.tip));
+          }))),
+        h('div', { className: 'card' }, h('h3', null, 'General next steps'),
+          h('ul', null,
+            h('li', null, 'Take a clear photo in daylight and note the date, so you can compare later.'),
+            h('li', null, 'Do not scratch, pick or treat the spot with home remedies.'),
+            h('li', null, 'Protect the area from the sun with clothing and SPF 30+ sunscreen.'),
+            h('li', null, 'Book a visit with a doctor or dermatologist if it is new, changing, itchy, painful or bleeding.'),
+            h('li', null, 'Go to urgent care for rapid spreading redness, fever, severe pain or heavy bleeding.'))),
+        DISCLAIMER);
+    } else {
+      right = h('div', { className: 'card empty' },
+        h('svg', { width: 40, height: 40, viewBox: '0 0 24 24', fill: 'none', stroke: 'currentColor', strokeWidth: 1.8, strokeLinecap: 'round', 'aria-hidden': 'true' }, h('rect', { x: 3, y: 4, width: 18, height: 16, rx: 3 }), h('circle', { cx: 9, cy: 10, r: 1.6 }), h('path', { d: 'M21 16l-5-5-8 8' })),
+        h('h3', null, '2. Results appear here'),
+        h('p', null, 'Add a photo, accept the notice, and press Analyze Skin. You will see a photo quality check, any model output, and general guidance.'),
+        h('span', { className: 'badge demo' }, 'Demo mode: no prediction without a connected model'));
+    }
+
+    return h('main', null, h('div', { className: 'wrap' },
+      h('div', { className: 'page-title' }, h('h1', { style: { fontSize: 'clamp(1.8rem,4.5vw,2.6rem)' } }, 'Analyze a skin photo'),
+        h('p', null, 'Your photo is read inside this page. It is not uploaded anywhere unless you connect your own model endpoint.')),
+      h('div', { style: { marginBottom: '1.25rem' } }, DISCLAIMER),
+      h('div', { className: 'analyze' }, left, right)));
+  }
+
+  function About() {
+    var items = function (a) { return h('ul', null, a.map(function (t, i) { return h('li', { key: i }, t); })); };
+    return h('main', null, h('div', { className: 'wrap' },
+      h('div', { className: 'page-title' }, h('h1', { style: { fontSize: 'clamp(1.8rem,4.5vw,2.6rem)' } }, 'About the project'),
+        h('p', null, 'SKIN AI is a college project by BYTE SQUAD that shows how image classification can support skin-health awareness, with safety built in.')),
+      h('div', { className: 'grid', style: { paddingBottom: '3rem' } },
+        h('div', { className: 'card' }, h('h3', null, 'Objectives'), items(['Build an end-to-end image-classification web app.', 'Rank skin-image categories from a trained model and explain them in plain language.', 'Show honest confidence, limits and safety messages with every result.', 'Encourage people to consult a professional.'])),
+        h('div', { className: 'card' }, h('h3', null, 'Technology'), items(['This page: React, running fully in your browser.', 'Full project: Python, TensorFlow/Keras (MobileNetV2 transfer learning) and Streamlit.', 'Dataset: a labelled dermatoscopic image set such as HAM10000.', 'Canvas API for the local photo quality check.'])),
+        h('div', { className: 'card' }, h('h3', null, 'Advantages'), items(['Free and available on phones and desktops.', 'Photo checks give instant feedback before analysis.', 'Clear separation between demo output and real model output.', 'Simple, readable code that is easy to extend.'])),
+        h('div', { className: 'card' }, h('h3', null, 'Limitations'), items(['Not a medical device and cannot diagnose.', 'Models trained on dermatoscope images can do worse on phone photos.', 'Training sets can be imbalanced and under-represent some skin tones.', 'Accuracy on a research dataset is not clinical accuracy.', 'This demo has no model connected, so it predicts nothing.'])))));
+  }
+
+  function Safety() {
+    return h('main', null, h('div', { className: 'wrap' },
+      h('div', { className: 'page-title' }, h('h1', { style: { fontSize: 'clamp(1.8rem,4.5vw,2.6rem)' } }, 'Safety and privacy')),
+      h('div', { className: 'stack', style: { paddingBottom: '3rem' } },
+        DISCLAIMER,
+        h('div', { className: 'notice info' }, h('b', null, 'Privacy notice. '), 'In this demo your photo is read inside your browser and is not stored or sent anywhere. If you connect your own model endpoint, the photo is sent to that server, so only use one you trust. Avoid photos that show your face or other identifying details.'),
+        h('div', { className: 'grid' },
+          h('div', { className: 'card' }, h('h3', null, 'See a professional if'), h('ul', null,
+            h('li', null, 'A spot is growing, changing shape or colour, or looks unlike your others.'),
+            h('li', null, 'A sore does not heal within about four weeks.'),
+            h('li', null, 'An area bleeds, oozes, crusts, itches or hurts without a clear reason.'),
+            h('li', null, 'You have a personal or family history of skin cancer.'))),
+          h('div', { className: 'card' }, h('h3', null, 'Seek urgent care if'), h('ul', null,
+            h('li', null, 'Redness or swelling spreads quickly, or the area feels hot.'),
+            h('li', null, 'You have a fever with a skin change.'),
+            h('li', null, 'Bleeding will not stop, or pain is severe.'),
+            h('li', null, 'In an emergency, call your local emergency number.')))))));
+  }
+
+  /* ---------- app ---------- */
+  function App() {
+    var view = useView();
+    var _t = useState(function () { return document.documentElement.getAttribute('data-theme') || 'system'; }), theme = _t[0], setTheme = _t[1];
+    var dark = theme === 'dark' || (theme === 'system' && window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    function toggle() {
+      var next = dark ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next); setTheme(next);
+    }
+    var page = view === 'analyze' ? h(Analyze) : view === 'about' ? h(About) : view === 'safety' ? h(Safety) : h(Home);
+    return h(React.Fragment, null, h(Header, { view: view, dark: dark, onTheme: toggle }), page, h(Footer));
+  }
+
+  ReactDOM.createRoot(document.getElementById('root')).render(h(App));
+})();
+</script>
+
+</body></html>
